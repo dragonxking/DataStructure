@@ -373,12 +373,68 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
         return null;
     }
 
-    public static void main(String[] args) {
-        testBasicFunctions();
+    //TODO
 
-        System.out.println("***********************************************");
+    /**
+     * 合并两个LinkedList
+     * @param headA
+     * @param headB
+     */
+    public static void mergeTwoLinkedList(Node headA,Node headB){
 
-        testCircularLinkedList();
+    }
+
+    //TODO
+    /**
+     * 删除倒数位置为pos的节点
+     * @param head
+     * @param pos
+     */
+    public static void deleteLastNodeX(Node head, int pos){
+
+    }
+
+    //TODO
+
+    /**
+     * 获取中间节点/
+     * @param head
+     */
+    public static Node getMiddleNode(Node head){
+        return null;
+    }
+
+
+    //TODO
+
+    /**
+     * 是否为回文链表
+     * @param head
+     */
+    public static boolean isPalindrome(Node head){
+        return true;
+    }
+
+    //TODO
+    /**
+     * 有环链表中距离p节点的最远节点
+     * @param head
+     * @param p
+     * @return
+     */
+    public static Node farthestNode(Node head, Node p){
+        return null;
+    }
+
+    //TODO
+    /**
+     * 判断两个无环链表中是否相交
+     * @param head1
+     * @param head2
+     * @return
+     */
+    public static boolean isCrossed(Node head1,Node head2){
+        return false;
     }
 
     public static void testBasicFunctions() {
@@ -453,12 +509,21 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
         demo.printAll();
     }
 
-    public static void testCircularLinkedList(){
+    public static void testCircleFunctions(){
+        System.out.println("==================================");
         DemoSingleLinkedList2 demoCircularLinkedList = new DemoSingleLinkedList2();
         demoCircularLinkedList.insertAll(new int[]{10,20,30,40,50,60,70,80,90,100});
-        Node node100 = demoCircularLinkedList.findByValue(100);
-        Node node50 = demoCircularLinkedList.findByValue(40);
-        node100.next = node50;
+        demoCircularLinkedList.printAll();
+
+        System.out.println("==================================");
+        Node nodeEnd = demoCircularLinkedList.findByValue(100);
+        System.out.println("nodeEnd:"+nodeEnd );
+
+        System.out.println("==================================");
+        Node nodeJoin = demoCircularLinkedList.findByValue(40);
+        System.out.println("nodeJoin:"+nodeJoin );
+
+        nodeEnd.next = nodeJoin;
 
         System.out.println("==================================isCircularLinkedList");
         boolean isCircular = isCircularLinkedList(demoCircularLinkedList.mHead);
@@ -476,7 +541,15 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
         System.out.println("==================================getTotalLength");
         int totalLength = getTotalLength(demoCircularLinkedList.mHead);
         System.out.println("totalLength "+totalLength);
-
     }
+
+    public static void main(String[] args) {
+        testBasicFunctions();
+
+        System.out.println("***********************************************");
+
+        testCircleFunctions();
+    }
+
 
 }
