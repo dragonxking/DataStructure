@@ -1,6 +1,5 @@
 package linkedlist.demo;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import linkedlist.base.ISingleLinkedList;
 import linkedlist.base.Node;
 
@@ -219,7 +218,7 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
         head.next = null;
         Node p = null;
 
-        while(next!=null){
+        while (next != null) {
             p = next;
             next = next.next;
 
@@ -268,12 +267,121 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
         return cur;
     }
 
+    public static Node reverse_Test2(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node prev = null;
+        Node cur = head;
+        Node next = head.next;
+
+        while (next != null) {
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+            next = next.next;
+        }
+        cur.next = prev;
+        return cur;
+    }
+
+    /**
+     * 判断单向链表中是否存在环
+     * @param head
+     * @return null：没有环；非null：快慢指针的相遇点
+     */
+    public static Node isCircular(Node head){
+        Node slow  = head;
+        Node fast  = head;
+
+        while(slow!=null && fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                return slow;
+            }
+        }
+        return null;
+    }
+
+    public static boolean isCircularLinkedList(Node head){
+        return isCircular(head) != null;
+    }
+
+    /**
+     * 获取环的长度
+     * @param head
+     * @return
+     */
+    public static int getCircleLength(Node head){
+        Node repeatNode = isCircular(head);
+        if(repeatNode==null){
+            return 0;
+        }else{
+            Node slow = repeatNode;
+            int count = 0;
+            while(slow.next!=repeatNode){
+                slow=slow.next;
+                count++;
+            }
+            return count+1;
+        }
+    }
+
+    /**
+     * 环的入口节点
+     * 定理 ： 距离：【头～入口】=【相遇点～入口】
+     * 定理证明： lenA = [头～入口]； 环长：R  ； [入口～相遇点] = x
+     * 相遇时 ： fast速度是slow的两倍：fast走过距离 = 2 * slow走过距离 即：(n：第几次相遇)
+     * lenA + x + nR = 2(lenA + x)
+     * nR = lenA + x
+     * lenA = nR - x
+     * n=1时 即第一次进入环的入口： lenA = R - x
+     * @param head
+     * @return
+     *
+     */
+    public static Node getJoinNode(Node head){
+        Node meetPosition = isCircular(head);
+        Node a = head;
+        Node p = meetPosition;
+        while(a!=p){
+            a = a.next;
+            p = p.next;
+        }
+        return a;
+    }
+
+    /**
+     * 带有环的单向链表的全长
+     * @param head
+     * @return
+     */
+    public static int getTotalLength(Node head){
+        int headToJoinLength = 0;
+        Node joinNode = getJoinNode(head);
+        Node p = head;
+        while(p!=joinNode){
+            p = p.next;
+            headToJoinLength++;
+        }
+        return headToJoinLength + getCircleLength(head);
+    }
+
     @Override
     public Node inverseLinkList(Node p) {
         return null;
     }
 
     public static void main(String[] args) {
+        testBasicFunctions();
+
+        System.out.println("***********************************************");
+
+        testCircularLinkedList();
+    }
+
+    public static void testBasicFunctions() {
         DemoSingleLinkedList2 demo = new DemoSingleLinkedList2();
 
         System.out.println("==================================");
@@ -339,6 +447,36 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
         System.out.println("==================================inverseLinkList_head_Test2");
         demo.mHead = demo.inverseLinkList_head_Test2(demo.mHead);
         demo.printAll();
+
+        System.out.println("==================================reverse_Test2");
+        demo.mHead = demo.reverse_Test2(demo.mHead);
+        demo.printAll();
+    }
+
+    public static void testCircularLinkedList(){
+        DemoSingleLinkedList2 demoCircularLinkedList = new DemoSingleLinkedList2();
+        demoCircularLinkedList.insertAll(new int[]{10,20,30,40,50,60,70,80,90,100});
+        Node node100 = demoCircularLinkedList.findByValue(100);
+        Node node50 = demoCircularLinkedList.findByValue(40);
+        node100.next = node50;
+
+        System.out.println("==================================isCircularLinkedList");
+        boolean isCircular = isCircularLinkedList(demoCircularLinkedList.mHead);
+        System.out.println("isCircular "+isCircular);
+
+        System.out.println("==================================getJoinNode");
+        Node joinNode = getJoinNode(demoCircularLinkedList.mHead);
+        System.out.println("joinNode "+joinNode);
+
+
+        System.out.println("==================================getCircleLength");
+        int circleLength = getCircleLength(demoCircularLinkedList.mHead);
+        System.out.println("circleLength "+circleLength);
+
+        System.out.println("==================================getTotalLength");
+        int totalLength = getTotalLength(demoCircularLinkedList.mHead);
+        System.out.println("totalLength "+totalLength);
+
     }
 
 }
