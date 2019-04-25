@@ -9,7 +9,7 @@ import linkedlist.base.Node;
  *
  * Author：Zheng
  */
-public class SinglyLinkedList implements ISingleLinkedList {
+public class TeacherAnswer implements ISingleLinkedList {
 
     private Node head = null;
 
@@ -293,7 +293,7 @@ public class SinglyLinkedList implements ISingleLinkedList {
 
     public static void main(String[]args){
 
-        SinglyLinkedList link = new SinglyLinkedList(); 
+        TeacherAnswer link = new TeacherAnswer();
         System.out.println("hello");
         //int data[] = {1};
         //int data[] = {1,2};

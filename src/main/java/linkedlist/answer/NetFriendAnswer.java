@@ -5,7 +5,7 @@ import linkedlist.base.Node;
 /**
  * 我眼中的民间高手
  */
-public class SingleLinkedListUtils {
+public class NetFriendAnswer {
     public static Node reverse(Node head) {
         if (head == null || head.next == null) {
             return head;
