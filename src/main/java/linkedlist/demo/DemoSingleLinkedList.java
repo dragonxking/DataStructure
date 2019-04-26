@@ -737,7 +737,7 @@ public class DemoSingleLinkedList implements ISingleLinkedList {
         Node x = getLastNode(nodes.mHead, 3);
         System.out.println(x);
 
-        System.out.println("==================================delete last x");
+        System.out.println("==================================delete last 3");
         Node headAfterDeleteX = deleteLastNode(nodes.mHead,3);
         printAll(headAfterDeleteX);
     }
