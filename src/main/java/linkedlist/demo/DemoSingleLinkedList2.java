@@ -287,10 +287,11 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
 
     /**
      * 判断单向链表中是否存在环
-     * 如果有环 快慢指针一定相遇(慢指针每前进1步 快指针前进2步）
-     * 结论证明：https://blog.csdn.net/sinat_35261315/article/details/79205157
+     * 快慢指针法： 两个指针同时从链表头移动 慢指针每次移动1步； 快指针每次移动2步；
+     * 快慢指针如果重合说明一定有环 证明：
+     * https://blog.csdn.net/sinat_35261315/article/details/79205157
      * @param head
-     * @return null：没有环；非null：相遇点
+     * @return null：没有环；非null：快慢指针的相遇点
      */
     public static Node isCircular(Node head){
         Node slow  = head;
@@ -376,7 +377,6 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
     }
 
     //TODO
-
     /**
      * 合并两个LinkedList
      * @param headA
