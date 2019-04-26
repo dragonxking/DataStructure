@@ -154,7 +154,8 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
         }
     }
 
-    public void printAll(Node headNode) {
+
+    public static void printAll(Node headNode) {
         if (headNode == null) {
             System.out.println("null");
             return;
@@ -285,49 +286,87 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
         return cur;
     }
 
+    public static Node reverse_Test3(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        Node cur = head;
+        Node prev = null;
+        Node next = cur.next;
+        while (next != null) {
+            cur.next = prev;
+            prev = cur; //TODO keep watch
+            cur = next;
+            next = next.next;
+        }
+        cur.next = prev; //TODO keep watch
+        return null;
+    }
+
+    public static Node reverse_Test4(Node head){
+        if(head==null || head.next==null){
+            return head;
+        }
+        Node cur = head;
+        Node prev = null;
+        Node next = cur.next;
+        while(next != null){
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+            next = next.next;
+        }
+        cur.next = prev;
+        return cur;
+    }
+
     /**
      * 判断单向链表中是否存在环
      * 快慢指针法： 两个指针同时从链表头移动 慢指针每次移动1步； 快指针每次移动2步；
      * 快慢指针如果重合说明一定有环 证明：
      * https://blog.csdn.net/sinat_35261315/article/details/79205157
+     *
      * @param head
      * @return null：没有环；非null：快慢指针的相遇点
      */
-    public static Node isCircular(Node head){
-        Node slow  = head;
-        Node fast  = head;
+    public static Node isCircular(Node head) {
+        Node slow = head;
+        Node fast = head;
 
-        while(slow!=null && fast.next!=null){
+        //TODO 注意while的判断中 都是用fast判断
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-            if(slow == fast){
+            if (slow == fast) {
                 return slow;
             }
         }
         return null;
     }
 
-    public static boolean isCircularLinkedList(Node head){
+    public static boolean isCircularLinkedList(Node head) {
         return isCircular(head) != null;
     }
 
     /**
      * 获取环的长度
+     *
      * @param head
      * @return
      */
-    public static int getCircleLength(Node head){
+    public static int getCircleLength(Node head) {
         Node repeatNode = isCircular(head);
-        if(repeatNode==null){
+        if (repeatNode == null) {
             return 0;
-        }else{
+        } else {
             Node slow = repeatNode;
             int count = 0;
-            while(slow.next!=repeatNode){
-                slow=slow.next;
+            while (slow.next != repeatNode) {
+                slow = slow.next;
                 count++;
             }
-            return count+1;
+            return count + 1;
         }
     }
 
@@ -340,15 +379,15 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
      * nR = lenA + x
      * lenA = nR - x
      * n=1时 即第一次进入环的入口： lenA = R - x
+     *
      * @param head
      * @return
-     *
      */
-    public static Node getJoinNode(Node head){
+    public static Node getJoinNode(Node head) {
         Node meetPosition = isCircular(head);
         Node a = head;
         Node p = meetPosition;
-        while(a!=p){
+        while (a != p) {
             a = a.next;
             p = p.next;
         }
@@ -357,14 +396,15 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
 
     /**
      * 带有环的单向链表的全长
+     *
      * @param head
      * @return
      */
-    public static int getTotalLength(Node head){
+    public static int getTotalLength(Node head) {
         int headToJoinLength = 0;
         Node joinNode = getJoinNode(head);
         Node p = head;
-        while(p!=joinNode){
+        while (p != joinNode) {
             p = p.next;
             headToJoinLength++;
         }
@@ -377,32 +417,65 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
     }
 
     //TODO
+
     /**
-     * 合并两个LinkedList
+     * 两个有序的链表合并
+     *
      * @param headA
      * @param headB
      */
-    public static void mergeTwoLinkedList(Node headA,Node headB){
+    public static Node mergeTwoLinkedList(Node headA, Node headB) {
+        Node curA = headA;
+        Node curB = headB;
+        Node p = null;
+        Node mergeCur = null;
 
+        while (curA != null || curB != null) {
+            if (curA == null) {
+                p = curB;
+                curB = curB.next;
+            } else if (curB == null) {
+                p = curA;
+                curA = curA.next;
+            } else {
+                if (curA.data < curB.data) {
+                    p = curA;
+                    curA = curA.next;
+                } else {
+                    p = curB;
+                    curB = curB.next;
+                }
+            }
+
+            p.next = mergeCur;
+            mergeCur = p;
+        }
+
+        //reverse
+
+        return  reverse_Test4(mergeCur);
     }
 
     //TODO
+
     /**
-     * 删除倒数位置为pos的节点
+     * 删除链表倒数第 n 个结点
+     *
      * @param head
      * @param pos
      */
-    public static void deleteLastNodeX(Node head, int pos){
+    public static void deleteLastNodeX(Node head, int pos) {
 
     }
 
     //TODO
 
     /**
-     * 获取中间节点/
+     * 求链表的中间结点
+     *
      * @param head
      */
-    public static Node getMiddleNode(Node head){
+    public static Node getMiddleNode(Node head) {
         return null;
     }
 
@@ -411,31 +484,36 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
 
     /**
      * 是否为回文链表
+     *
      * @param head
      */
-    public static boolean isPalindrome(Node head){
+    public static boolean isPalindrome(Node head) {
         return true;
     }
 
     //TODO
+
     /**
      * 有环链表中距离p节点的最远节点
+     *
      * @param head
      * @param p
      * @return
      */
-    public static Node farthestNode(Node head, Node p){
+    public static Node farthestNode(Node head, Node p) {
         return null;
     }
 
     //TODO
+
     /**
      * 判断两个无环链表中是否相交
+     *
      * @param head1
      * @param head2
      * @return
      */
-    public static boolean isCrossed(Node head1,Node head2){
+    public static boolean isCrossed(Node head1, Node head2) {
         return false;
     }
 
@@ -511,46 +589,65 @@ public class DemoSingleLinkedList2 implements ISingleLinkedList {
         demo.printAll();
     }
 
-    public static void testCircleFunctions(){
+    public static void testCircleFunctions() {
         System.out.println("==================================");
         DemoSingleLinkedList2 demoCircularLinkedList = new DemoSingleLinkedList2();
-        demoCircularLinkedList.insertAll(new int[]{10,20,30,40,50,60,70,80,90,100});
+        demoCircularLinkedList.insertAll(new int[]{10, 20, 30, 40, 50, 60, 70, 80, 90, 100});
         demoCircularLinkedList.printAll();
 
         System.out.println("==================================");
         Node nodeEnd = demoCircularLinkedList.findByValue(100);
-        System.out.println("nodeEnd:"+nodeEnd );
+        System.out.println("nodeEnd:" + nodeEnd);
 
         System.out.println("==================================");
         Node nodeJoin = demoCircularLinkedList.findByValue(40);
-        System.out.println("nodeJoin:"+nodeJoin );
+        System.out.println("nodeJoin:" + nodeJoin);
 
         nodeEnd.next = nodeJoin;
 
         System.out.println("==================================isCircularLinkedList");
         boolean isCircular = isCircularLinkedList(demoCircularLinkedList.mHead);
-        System.out.println("isCircular "+isCircular);
+        System.out.println("isCircular " + isCircular);
 
         System.out.println("==================================getJoinNode");
         Node joinNode = getJoinNode(demoCircularLinkedList.mHead);
-        System.out.println("joinNode "+joinNode);
+        System.out.println("joinNode " + joinNode);
 
 
         System.out.println("==================================getCircleLength");
         int circleLength = getCircleLength(demoCircularLinkedList.mHead);
-        System.out.println("circleLength "+circleLength);
+        System.out.println("circleLength " + circleLength);
 
         System.out.println("==================================getTotalLength");
         int totalLength = getTotalLength(demoCircularLinkedList.mHead);
-        System.out.println("totalLength "+totalLength);
+        System.out.println("totalLength " + totalLength);
     }
 
     public static void main(String[] args) {
-        testBasicFunctions();
+//        testBasicFunctions();
+//        System.out.println("***********************************************\n");
+//        testCircleFunctions();
+//        System.out.println("***********************************************\n");
 
-        System.out.println("***********************************************");
+        testMergeTwoSortedNodes();
+    }
 
-        testCircleFunctions();
+    private static void testMergeTwoSortedNodes() {
+        System.out.println("==================================A");
+
+        DemoSingleLinkedList2 orderedLinkedListA = new DemoSingleLinkedList2();
+        orderedLinkedListA.insertAll(new int[]{1, 3, 4, 6, 9});
+        orderedLinkedListA.printAll();
+
+        System.out.println("==================================B");
+        DemoSingleLinkedList2 orderedLinkedListB = new DemoSingleLinkedList2();
+        orderedLinkedListB.insertAll(new int[]{2, 5, 7, 8, 10});
+        orderedLinkedListB.printAll();
+
+        System.out.println("==================================merge A and B");
+        Node mergeHead = mergeTwoLinkedList(orderedLinkedListA.mHead, orderedLinkedListB.mHead);
+        printAll(mergeHead);
+        System.out.println("merge result has circle: "+isCircularLinkedList(mergeHead));
     }
 
 
