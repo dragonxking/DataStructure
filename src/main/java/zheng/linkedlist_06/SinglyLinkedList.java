@@ -1,7 +1,4 @@
-package linkedlist.answer;
-
-import linkedlist.base.ISingleLinkedList;
-import linkedlist.base.Node;
+package zheng.linkedlist_06;
 
 /**
  * 1）单链表的插入、删除、查找操作；
@@ -9,7 +6,7 @@ import linkedlist.base.Node;
  *
  * Author：Zheng
  */
-public class TeacherAnswer implements ISingleLinkedList {
+public class SinglyLinkedList {
 
     private Node head = null;
 
@@ -291,9 +288,22 @@ public class TeacherAnswer implements ISingleLinkedList {
         return new Node(value, null);
     }
 
+    public static class Node {
+        private int data;
+        private Node next;
+
+        public Node(int data, Node next) {
+            this.data = data;
+            this.next = next;
+        }
+
+        public int getData() {
+            return data;
+        }
+    }
     public static void main(String[]args){
 
-        TeacherAnswer link = new TeacherAnswer();
+        SinglyLinkedList link = new SinglyLinkedList(); 
         System.out.println("hello");
         //int data[] = {1};
         //int data[] = {1,2};

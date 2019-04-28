@@ -1,4 +1,4 @@
-package linkedlist.base;
+package mydemo.linkedlist;
 
 public class Node {
     public int data;

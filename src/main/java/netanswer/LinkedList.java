@@ -1,11 +1,11 @@
-package linkedlist.answer;
+package netanswer;
 
-import linkedlist.base.Node;
+import mydemo.linkedlist.Node;
 
 /**
  * 我眼中的民间高手
  */
-public class NetFriendAnswer {
+public class LinkedList {
     public static Node reverse(Node head) {
         if (head == null || head.next == null) {
             return head;

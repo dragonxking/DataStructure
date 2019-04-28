@@ -1,4 +1,4 @@
-package linkedlist.demo;
+package mydemo.linkedlist;
 
 public class Test {
 

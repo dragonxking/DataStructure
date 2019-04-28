@@ -1,12 +1,5 @@
-package linkedlist.demo;
+package mydemo.linkedlist;
 
-import linkedlist.base.ISingleLinkedList;
-import linkedlist.base.Node;
-
-/**
- * 1）单链表的插入、删除、查找操作；
- * 2）链表中存储的是int类型的数据；
- */
 public class DemoSingleLinkedList implements ISingleLinkedList {
 
     private Node mHead = null;
