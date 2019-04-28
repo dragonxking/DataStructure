@@ -480,8 +480,6 @@ public class DemoSingleLinkedList implements ISingleLinkedList {
         return merge;
     }
 
-    //TODO
-
     /**
      * 删除链表倒数第 n 个结点
      *
@@ -492,20 +490,17 @@ public class DemoSingleLinkedList implements ISingleLinkedList {
         if (pos <= 0 || head == null) return head;
         Node early = head;
         Node late = head;
-        Node latePrev = null;
         int count = 0;
         while (early.next != null) {
             early = early.next;
-            if (count >= pos - 1) {
-                latePrev = late;
+            if (count >= pos) {
                 late = late.next;
             }
             count++;
         }
-        System.out.println("deleteLastNode  latePrev = "+latePrev);
-        System.out.println("deleteLastNode  late = "+late);
+        System.out.println("deleteLastNode  latePrev = " + late);
 
-        latePrev.next = late.next;
+        late.next = late.next.next;
 
 
         return head;
@@ -529,19 +524,29 @@ public class DemoSingleLinkedList implements ISingleLinkedList {
         return late;
     }
 
-    //TODO
-
     /**
      * 求链表的中间结点
      *
      * @param head
      */
     public static Node getMiddleNode(Node head) {
-        return null;
+        if (head == null || head.next == null) return head;
+        Node slow = head;
+        Node fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        if (fast.next != null) {
+            System.out.println("共偶数个结点 slow在中间偏右");
+            return null;
+        } else {
+            //奇数个结点
+            System.out.println("共奇数个结点 slow在中间");
+            return slow;
+        }
     }
 
-
-    //TODO
 
     /**
      * 是否为回文链表
@@ -549,11 +554,53 @@ public class DemoSingleLinkedList implements ISingleLinkedList {
      * @param head
      */
     public static boolean isPalindrome(Node head) {
-        return true;
+        if (head == null || head.next == null) return false;
+        // 找到中间结点
+        Node slow = head;
+        Node fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        Node secondHead = slow.next;
+
+        Node firstEndNext;
+        if (fast.next != null) {
+            firstEndNext = slow.next;
+        } else {
+            firstEndNext = slow;
+        }
+
+        //第一部分逆序
+        Node firstHead = head;
+        Node next = head.next;
+        Node prev = null;
+        while (next != firstEndNext) {
+            firstHead.next = prev;
+            prev = firstHead;
+            firstHead = next;
+            next = next.next;
+        }
+        firstHead.next = prev;
+
+        //第一部分逆序后 和 第二部分比较
+        while (secondHead != null && firstHead != null) {
+            if (secondHead.data == firstHead.data) {
+                secondHead = secondHead.next;
+                firstHead = firstHead.next;
+            } else {
+                return false;
+            }
+        }
+        if (secondHead == null && firstHead == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //TODO
-
     /**
      * 有环链表中距离p节点的最远节点
      *
@@ -566,9 +613,9 @@ public class DemoSingleLinkedList implements ISingleLinkedList {
     }
 
     //TODO
-
     /**
      * 判断两个无环链表中是否相交
+     * 思路：将其中一个链表首尾相连 判断另一个链表是否有环 如果有说明相交
      *
      * @param head1
      * @param head2
@@ -686,14 +733,18 @@ public class DemoSingleLinkedList implements ISingleLinkedList {
 
     public static void main(String[] args) {
 //        testBasicFunctions();
+
 //        System.out.println("***********************************************\n");
 //        testCircleFunctions();
+
 //        System.out.println("***********************************************\n");
 //        testMergeTwoSortedNodes();
 
-        System.out.println("***********************************************\n");
-        testGetLastXNode();
+//        System.out.println("***********************************************\n");
+//        testGetLastXNode();
 
+        System.out.println("***********************************************\n");
+        testIsPalindrome();
     }
 
     private static void testMergeTwoSortedNodes() {
@@ -737,9 +788,46 @@ public class DemoSingleLinkedList implements ISingleLinkedList {
         Node x = getLastNode(nodes.mHead, 3);
         System.out.println(x);
 
+        System.out.println("==================================getMiddleNode");
+        Node middleNode = getMiddleNode(nodes.mHead);
+        System.out.println(middleNode);
+
         System.out.println("==================================delete last 3");
-        Node headAfterDeleteX = deleteLastNode(nodes.mHead,3);
+        Node headAfterDeleteX = deleteLastNode(nodes.mHead, 3);
         printAll(headAfterDeleteX);
+
+        System.out.println("==================================getMiddleNode");
+        Node middleNode2 = getMiddleNode(nodes.mHead);
+        System.out.println(middleNode2);
+
+    }
+
+    private static void testIsPalindrome() {
+        DemoSingleLinkedList llA = new DemoSingleLinkedList();
+        llA.insertAll(new int[]{1, 3, 4, 6, 9});
+        boolean isPalindromeA = isPalindrome(llA.mHead);
+        System.out.println("llA : " + isPalindromeA);
+
+        DemoSingleLinkedList llB = new DemoSingleLinkedList();
+        llB.insertAll(new int[]{1, 3, 4, 3, 1});
+        boolean isPalindromeB = isPalindrome(llB.mHead);
+        System.out.println("llB : " + isPalindromeB);
+
+        DemoSingleLinkedList llC = new DemoSingleLinkedList();
+        llC.insertAll(new int[]{1, 3, 4, 4, 3, 1});
+        boolean isPalindromeC = isPalindrome(llC.mHead);
+        System.out.println("llC : " + isPalindromeC);
+
+        DemoSingleLinkedList llD = new DemoSingleLinkedList();
+        llD.insertAll(new int[]{1, 3, 1});
+        boolean isPalindromeD = isPalindrome(llD.mHead);
+        System.out.println("llD : " + isPalindromeD);
+
+        DemoSingleLinkedList llE = new DemoSingleLinkedList();
+        llE.insertAll(new int[]{1, 1});
+        boolean isPalindromeE = isPalindrome(llE.mHead);
+        System.out.println("llE : " + isPalindromeE);
+
     }
 
 
