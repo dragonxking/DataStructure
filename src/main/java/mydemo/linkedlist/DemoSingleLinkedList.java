@@ -160,13 +160,6 @@ public class DemoSingleLinkedList implements ISingleLinkedList {
         }
     }
 
-    @Override
-    public boolean palindrome() {
-
-        //TODO
-        return false;
-    }
-
     //带结点的链表翻转
     @Override
     public Node inverseLinkList_head(Node p) {

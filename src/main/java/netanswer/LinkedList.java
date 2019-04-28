@@ -1,9 +1,9 @@
 package netanswer;
 
-import mydemo.linkedlist.Node;
+import mydemo.linkedlist.ISingleLinkedList.Node;
 
 /**
- * 我眼中的民间高手
+ * 网友答案
  */
 public class LinkedList {
     public static Node reverse(Node head) {

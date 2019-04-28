@@ -24,11 +24,6 @@ public interface ISingleLinkedList {
     void printAll();
 
     /**
-     * 判断是否为回文
-     */
-    boolean palindrome();
-
-    /**
      * 带结点的链表翻转
      */
     Node inverseLinkList_head(Node p);
@@ -37,5 +32,33 @@ public interface ISingleLinkedList {
      * 无头结点的链表翻转
      */
     Node inverseLinkList(Node p);
+
+    class Node {
+        public int data;
+        public Node next;
+        public char c;
+
+        public Node(int data, Node next) {
+            this.data = data;
+            this.next = next;
+        }
+
+        public Node(Node next, char c) {
+            this.next = next;
+            this.c = c;
+        }
+
+        public Node(char c) {
+            this.c = c;
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "data=" + data +
+                    "," + getClass().getSimpleName() + "@" + Integer.toHexString(hashCode()) +
+                    '}';
+        }
+    }
 
 }
