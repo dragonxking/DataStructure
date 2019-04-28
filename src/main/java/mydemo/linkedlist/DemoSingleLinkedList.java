@@ -475,19 +475,23 @@ public class DemoSingleLinkedList implements ISingleLinkedList {
     public static Node deleteLastNode(Node head, int pos) {
         if (pos <= 0 || head == null) return head;
         Node early = head;
-        Node late = head;
+        Node late = null;
         int count = 0;
         while (early.next != null) {
             early = early.next;
             if (count >= pos) {
-                late = late.next;
+                if(late == null){
+                    late = head.next;
+                }else {
+                    late = late.next;
+                }
             }
             count++;
         }
-        System.out.println("deleteLastNode  latePrev = " + late);
-
-        late.next = late.next.next;
-
+        System.out.println("deleteLastNode previous node = "+late);
+        if(late!=null) {
+            late.next = late.next.next;
+        }
 
         return head;
     }
@@ -516,21 +520,20 @@ public class DemoSingleLinkedList implements ISingleLinkedList {
      * @param head
      */
     public static Node getMiddleNode(Node head) {
-        if (head == null || head.next == null) return head;
+        if(head == null || head.next==null) return head;
         Node slow = head;
         Node fast = head;
-        while (fast.next != null && fast.next.next != null) {
+        while(fast!=null && fast.next!=null){
             slow = slow.next;
             fast = fast.next.next;
         }
-        if (fast.next != null) {
-            System.out.println("共偶数个结点 slow在中间偏右");
-            return null;
-        } else {
-            //奇数个结点
-            System.out.println("共奇数个结点 slow在中间");
-            return slow;
+        if(fast == null){
+            System.out.println("even(偶数个)");
+        }else{
+            System.out.println("odd(奇数个)");
         }
+
+        return slow;
     }
 
 
@@ -719,10 +722,8 @@ public class DemoSingleLinkedList implements ISingleLinkedList {
 
     public static void main(String[] args) {
 //        testBasicFunctions();
-
 //        System.out.println("***********************************************\n");
 //        testCircleFunctions();
-
 //        System.out.println("***********************************************\n");
 //        testMergeTwoSortedNodes();
 
