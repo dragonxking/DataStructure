@@ -1,4 +1,4 @@
-package mydemo.linkedlist;
+package mydemo.linkedlist._07_linkedlist;
 
 public interface ISingleLinkedList {
     Node findByValue(int value);

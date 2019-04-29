@@ -1,6 +1,6 @@
 package netanswer;
 
-import mydemo.linkedlist.ISingleLinkedList.Node;
+import mydemo.linkedlist._07_linkedlist.ISingleLinkedList.Node;
 
 /**
  * 网友答案

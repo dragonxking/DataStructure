@@ -1,4 +1,4 @@
-package mydemo.linkedlist;
+package mydemo.linkedlist._07_linkedlist;
 
 public class DemoSingleLinkedList implements ISingleLinkedList {
 
